@@ -1,0 +1,601 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local BanGui = Instance.new("ScreenGui")
+local PlayersScroll = Instance.new("ScrollingFrame")
+local UIListLayout = Instance.new("UIListLayout")
+local Template = Instance.new("Frame")
+local Ban = Instance.new("TextButton")
+local Unban = Instance.new("TextButton")
+local Spectate = Instance.new("TextButton")
+local Note = Instance.new("TextBox")
+local UIListLayout_2 = Instance.new("UIListLayout")
+local BanGui_2 = Instance.new("Frame")
+local PlayerName = Instance.new("TextLabel")
+local JoinServer = Instance.new("TextButton")
+local JoinServerPlayer = Instance.new("TextBox")
+local PERMA = Instance.new("TextButton")
+local UNBAN = Instance.new("TextButton")
+local PERMAID = Instance.new("TextBox")
+local UNBANID = Instance.new("TextBox")
+local FIndPlayerServerID = Instance.new("TextLabel")
+local ScriptHandlers = Instance.new("Folder")
+local BillboardGui = Instance.new("BillboardGui")
+local TextLabel = Instance.new("TextLabel")
+
+--Properties:
+
+BanGui.Name = "BanGui"
+BanGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+BanGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+BanGui.ResetOnSpawn = false
+
+PlayersScroll.Name = "PlayersScroll"
+PlayersScroll.Parent = BanGui
+PlayersScroll.Active = true
+PlayersScroll.BackgroundColor3 = Color3.fromRGB(187, 187, 189)
+PlayersScroll.Position = UDim2.new(0.634331346, 0, 0.203647509, 0)
+PlayersScroll.Size = UDim2.new(0, 550, 0, 380)
+
+UIListLayout.Parent = PlayersScroll
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0, 4)
+
+Template.Name = "Template"
+Template.Parent = game.StarterGui.BanGui.PlayersScroll.ListScript
+Template.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Template.Position = UDim2.new(0, 0, 0.147368416, 0)
+Template.Size = UDim2.new(0, 546, 0, 49)
+
+Ban.Name = "Ban"
+Ban.Parent = Template
+Ban.BackgroundColor3 = Color3.fromRGB(223, 74, 42)
+Ban.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Ban.Position = UDim2.new(-0.00867263693, 0, 0, 0)
+Ban.Size = UDim2.new(0, 140, 0, 48)
+Ban.Font = Enum.Font.SourceSans
+Ban.Text = "Player"
+Ban.TextColor3 = Color3.fromRGB(0, 0, 0)
+Ban.TextScaled = true
+Ban.TextSize = 14.000
+Ban.TextWrapped = true
+
+Unban.Name = "Unban"
+Unban.Parent = Template
+Unban.BackgroundColor3 = Color3.fromRGB(52, 134, 87)
+Unban.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Unban.LayoutOrder = 1
+Unban.Position = UDim2.new(0.246402472, 0, 0, 0)
+Unban.Size = UDim2.new(0, 138, 0, 48)
+Unban.Font = Enum.Font.SourceSans
+Unban.Text = "UnBan"
+Unban.TextColor3 = Color3.fromRGB(0, 0, 0)
+Unban.TextSize = 57.000
+Unban.TextWrapped = true
+
+Spectate.Name = "Spectate"
+Spectate.Parent = Template
+Spectate.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Spectate.LayoutOrder = 3
+Spectate.Position = UDim2.new(1.19373083, 0, 0, 0)
+Spectate.Size = UDim2.new(0, 137, 0, 48)
+Spectate.Font = Enum.Font.SourceSans
+Spectate.Text = "Spectate"
+Spectate.TextColor3 = Color3.fromRGB(0, 0, 0)
+Spectate.TextScaled = true
+Spectate.TextSize = 14.000
+Spectate.TextWrapped = true
+
+Note.Name = "Note"
+Note.Parent = Template
+Note.BackgroundColor3 = Color3.fromRGB(189, 188, 191)
+Note.LayoutOrder = 2
+Note.Position = UDim2.new(0.498169154, 0, 0, 0)
+Note.Size = UDim2.new(0, 138, 0, 48)
+Note.Font = Enum.Font.SourceSans
+Note.PlaceholderColor3 = Color3.fromRGB(0, 0, 0)
+Note.PlaceholderText = "Ban/Unban Note Here"
+Note.Text = ""
+Note.TextColor3 = Color3.fromRGB(0, 0, 0)
+Note.TextScaled = true
+Note.TextSize = 24.000
+Note.TextWrapped = true
+
+UIListLayout_2.Parent = Template
+UIListLayout_2.FillDirection = Enum.FillDirection.Horizontal
+UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+
+BanGui_2.Name = "BanGui"
+BanGui_2.Parent = BanGui
+BanGui_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+BanGui_2.BackgroundTransparency = 1.000
+BanGui_2.Position = UDim2.new(0.633622944, 0, 0.0910139754, 0)
+BanGui_2.Size = UDim2.new(0, 554, 0, 114)
+
+PlayerName.Name = "PlayerName"
+PlayerName.Parent = BanGui_2
+PlayerName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PlayerName.Position = UDim2.new(0.498276919, 0, 0.0263157897, 0)
+PlayerName.Size = UDim2.new(0, 276, 0, 36)
+PlayerName.Font = Enum.Font.SourceSans
+PlayerName.Text = "PlayerName"
+PlayerName.TextColor3 = Color3.fromRGB(0, 0, 0)
+PlayerName.TextScaled = true
+PlayerName.TextSize = 14.000
+PlayerName.TextWrapped = true
+
+JoinServer.Name = "JoinServer"
+JoinServer.Parent = BanGui_2
+JoinServer.BackgroundColor3 = Color3.fromRGB(131, 138, 216)
+JoinServer.BorderColor3 = Color3.fromRGB(27, 42, 53)
+JoinServer.Position = UDim2.new(0.00188691181, 0, 0.339071035, 0)
+JoinServer.Size = UDim2.new(0, 275, 0, 38)
+JoinServer.Font = Enum.Font.SourceSans
+JoinServer.Text = "Join Server"
+JoinServer.TextColor3 = Color3.fromRGB(0, 0, 0)
+JoinServer.TextScaled = true
+JoinServer.TextSize = 14.000
+JoinServer.TextWrapped = true
+
+JoinServerPlayer.Name = "JoinServerPlayer"
+JoinServerPlayer.Parent = BanGui_2
+JoinServerPlayer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+JoinServerPlayer.Position = UDim2.new(0.498276919, 0, 0.339071035, 0)
+JoinServerPlayer.Size = UDim2.new(0, 276, 0, 38)
+JoinServerPlayer.Font = Enum.Font.SourceSans
+JoinServerPlayer.Text = ""
+JoinServerPlayer.TextColor3 = Color3.fromRGB(0, 0, 0)
+JoinServerPlayer.TextScaled = true
+JoinServerPlayer.TextSize = 14.000
+JoinServerPlayer.TextWrapped = true
+
+PERMA.Name = "PERMA"
+PERMA.Parent = BanGui_2
+PERMA.BackgroundColor3 = Color3.fromRGB(230, 95, 94)
+PERMA.Position = UDim2.new(8.18576664e-05, 0, 0.671538472, 0)
+PERMA.Size = UDim2.new(0, 275, 0, 19)
+PERMA.Font = Enum.Font.SourceSans
+PERMA.Text = "PERMA"
+PERMA.TextColor3 = Color3.fromRGB(0, 0, 0)
+PERMA.TextScaled = true
+PERMA.TextSize = 14.000
+PERMA.TextWrapped = true
+
+UNBAN.Name = "UNBAN"
+UNBAN.Parent = BanGui_2
+UNBAN.BackgroundColor3 = Color3.fromRGB(230, 196, 181)
+UNBAN.Position = UDim2.new(0.00188691181, 0, 0.846977115, 0)
+UNBAN.Size = UDim2.new(0, 275, 0, 19)
+UNBAN.Font = Enum.Font.SourceSans
+UNBAN.Text = "UNBAN"
+UNBAN.TextColor3 = Color3.fromRGB(0, 0, 0)
+UNBAN.TextScaled = true
+UNBAN.TextSize = 14.000
+UNBAN.TextWrapped = true
+
+PERMAID.Name = "PERMAID"
+PERMAID.Parent = BanGui_2
+PERMAID.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PERMAID.Position = UDim2.new(0.498276919, 0, 0.675438643, 0)
+PERMAID.Size = UDim2.new(0, 276, 0, 20)
+PERMAID.Font = Enum.Font.SourceSans
+PERMAID.PlaceholderColor3 = Color3.fromRGB(0, 0, 0)
+PERMAID.PlaceholderText = "UserID"
+PERMAID.Text = ""
+PERMAID.TextColor3 = Color3.fromRGB(0, 0, 0)
+PERMAID.TextScaled = true
+PERMAID.TextSize = 14.000
+PERMAID.TextWrapped = true
+
+UNBANID.Name = "UNBANID"
+UNBANID.Parent = BanGui_2
+UNBANID.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+UNBANID.Position = UDim2.new(0.498276919, 0, 0.842105329, 0)
+UNBANID.Size = UDim2.new(0, 276, 0, 20)
+UNBANID.Font = Enum.Font.SourceSans
+UNBANID.PlaceholderColor3 = Color3.fromRGB(0, 0, 0)
+UNBANID.PlaceholderText = "UserID"
+UNBANID.Text = ""
+UNBANID.TextColor3 = Color3.fromRGB(0, 0, 0)
+UNBANID.TextScaled = true
+UNBANID.TextSize = 14.000
+UNBANID.TextWrapped = true
+
+FIndPlayerServerID.Name = "FInd Player Server ID"
+FIndPlayerServerID.Parent = BanGui_2
+FIndPlayerServerID.BackgroundColor3 = Color3.fromRGB(201, 255, 109)
+FIndPlayerServerID.Position = UDim2.new(0.00188702194, 0, 0.0175438598, 0)
+FIndPlayerServerID.Size = UDim2.new(0, 275, 0, 36)
+FIndPlayerServerID.Font = Enum.Font.SourceSans
+FIndPlayerServerID.Text = "Find Player Server ID"
+FIndPlayerServerID.TextColor3 = Color3.fromRGB(0, 0, 0)
+FIndPlayerServerID.TextScaled = true
+FIndPlayerServerID.TextSize = 14.000
+FIndPlayerServerID.TextWrapped = true
+
+ScriptHandlers.Name = "ScriptHandlers"
+ScriptHandlers.Parent = BanGui
+
+BillboardGui.Parent = game.StarterGui.BanGui["Toggle GUI + ESP"]
+BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+BillboardGui.Active = true
+BillboardGui.AlwaysOnTop = true
+BillboardGui.Size = UDim2.new(0, 200, 0, 25)
+
+TextLabel.Parent = BillboardGui
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Size = UDim2.new(1, 0, 1, 0)
+TextLabel.Visible = false
+TextLabel.Font = Enum.Font.SourceSansBold
+TextLabel.Text = "Username"
+TextLabel.TextColor3 = Color3.fromRGB(172, 239, 255)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+
+-- Scripts:
+
+local function EHVMVHT_fake_script() -- PlayersScroll.ListScript 
+	local script = Instance.new('LocalScript', PlayersScroll)
+
+	local ListParent = script.Parent
+	
+	
+	game.Players.PlayerAdded:Connect(function(plr)
+		local template = script.Template
+		local Clone = template:Clone()
+		Clone.Name = plr.Name
+		Clone.Parent = ListParent
+		Clone.Ban.Text = plr.Name
+	end)
+	
+	
+	game.Players.PlayerRemoving:Connect(function(plr)
+		
+		script.Parent:FindFirstChild(plr.Name):Destroy()
+		
+	end)
+	
+	wait(2)
+	
+	for i,v in pairs(game.Players:GetChildren()) do
+		local new = script.Template:Clone()
+		new.Name = v.Name
+		new.Parent = script.Parent
+		new.Ban.Text = v.Name
+	end
+end
+coroutine.wrap(EHVMVHT_fake_script)()
+local function ZDJUZC_fake_script() -- Ban.BanButtonScript 
+	local script = Instance.new('LocalScript', Ban)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Disabled = true
+		script.Parent.Parent.Parent.Parent.BanPlayer:FireServer(script.Parent.Text, script.Parent.Parent.Note.Text)
+		wait(3)
+		script.Disabled = false
+	end)
+end
+coroutine.wrap(ZDJUZC_fake_script)()
+local function WDBOXPE_fake_script() -- Unban.UnbanScript 
+	local script = Instance.new('LocalScript', Unban)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Disabled = true
+		script.Parent.Parent.Parent.Parent.UnbanPlayer:FireServer(script.Parent.Parent.Ban.Text)
+		wait(3)
+		script.Disabled = false
+	end)
+end
+coroutine.wrap(WDBOXPE_fake_script)()
+local function OACU_fake_script() -- Spectate.SpectateScript 
+	local script = Instance.new('LocalScript', Spectate)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		local cam = workspace.CurrentCamera
+		local players = game.Players
+		cam.CameraSubject = players:FindFirstChild(script.Parent.Parent.Ban.Text).Character:WaitForChild("Humanoid")
+	end)
+end
+coroutine.wrap(OACU_fake_script)()
+local function XJEGX_fake_script() -- JoinServer.JoinPlayerServerButton 
+	local script = Instance.new('LocalScript', JoinServer)
+
+	local TPS = game:GetService("TeleportService")
+	local placeId, jobId
+	local player = game.Players.LocalPlayer
+	
+	script.Parent.MouseButton1Click:Connect(function()
+		local gui = script.Parent.Parent.JoinServerPlayer.Text
+		print(gui)
+		placeId, jobId = script.Parent.Parent.Parent.GetServer:InvokeServer(gui)
+		if placeId and jobId then
+			TPS:TeleportToPlaceInstance(placeId, jobId, player)
+		end
+	end)
+end
+coroutine.wrap(XJEGX_fake_script)()
+local function CFYNUHH_fake_script() -- PERMA.OfflinePERMAButton 
+	local script = Instance.new('LocalScript', PERMA)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Disabled = true
+		script.Parent.Parent.Parent.BanPlayer:FireServer(script.Parent.Parent.PERMAID.Text)
+		wait(3)
+		script.Disabled = false
+	end)
+end
+coroutine.wrap(CFYNUHH_fake_script)()
+local function DWXOM_fake_script() -- UNBAN.OfflineUNBANButton 
+	local script = Instance.new('LocalScript', UNBAN)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Disabled = true
+		script.Parent.Parent.Parent.UnbanPlayer:FireServer(script.Parent.Parent.UNBANID.Text)
+		wait(3)
+		script.Disabled = false
+	end)
+end
+coroutine.wrap(DWXOM_fake_script)()
+local function MIRFKM_fake_script() -- ScriptHandlers.UnbanPlayer 
+	local script = Instance.new('Script', ScriptHandlers)
+
+	local DataStoresSrvice = game:GetService("DataStoreService")
+	local BannedData = DataStoresSrvice:GetDataStore("Banned")
+	
+	script.Parent.Parent.UnbanPlayer.OnServerEvent:Connect(function(plr, plrtounban)
+	
+		local number = tonumber(plrtounban)
+	
+		if number then
+	
+			local uid2 = game.Players:GetNameFromUserIdAsync(plrtounban)
+			local uid =  game.Players:GetUserIdFromNameAsync(uid2)
+	
+			local data = BannedData:GetAsync(uid)
+	
+			if data[1] == uid then
+	
+				BannedData:RemoveAsync(uid)
+	
+			end
+	
+	
+		else
+			local uid = game.Players:GetUserIdFromNameAsync(plrtounban)
+	
+			local data = BannedData:GetAsync(uid)
+	
+			if data[1] == uid then
+	
+				local note = data[2]:lower()
+	
+				if note == "perma" then
+	
+					BannedData:RemoveAsync(uid)
+	
+				else
+	
+					local player = game.Players:FindFirstChild(plrtounban)
+	
+					BannedData:RemoveAsync(uid)
+	
+	
+					if data[1] == uid then        
+						player:LoadCharacter()
+						player.PlayerGui:WaitForChild("MainScreenGui").TimerJail.Visible = false
+						player.PlayerGui:WaitForChild("MainScreenGui").UnbanTimer.Visible = true
+	
+						wait(2)
+	
+						local animationTrack = player.Character.Humanoid:LoadAnimation(script.HandCuffed)
+	
+	
+						animationTrack:Play()
+	
+	
+	
+	
+						wait(1)
+	
+						player.Character.HumanoidRootPart.CFrame = game.Workspace.Jail.Teleport.CFrame
+						player.PlayerGui:WaitForChild("MainScreenGui").UnbanTimer.Text = "Jail Timer: 5"
+						wait(1)
+						player.PlayerGui:WaitForChild("MainScreenGui").UnbanTimer.Text = "Jail Timer: 4"
+						wait(1)
+						player.PlayerGui:WaitForChild("MainScreenGui").UnbanTimer.Text = "Jail Timer: 3"
+						wait(1)
+						player.PlayerGui:WaitForChild("MainScreenGui").UnbanTimer.Text = "Jail Timer: 2"
+						wait(1)
+						player.PlayerGui:WaitForChild("MainScreenGui").UnbanTimer.Text = "Jail Timer: 1"
+						wait(1)
+						player.PlayerGui:WaitForChild("MainScreenGui").UnbanTimer.Text = "Jail Timer: 0"
+						player.PlayerGui:WaitForChild("MainScreenGui").UnbanTimer.Visible = false
+	
+						player:LoadCharacter()
+						_G.counting = false
+						_G.Timer = 999999999
+	
+	
+	
+					end        
+				end
+			end
+		end
+	
+	
+	end)
+end
+coroutine.wrap(MIRFKM_fake_script)()
+local function ETTVH_fake_script() -- ScriptHandlers.JoinServerHandler 
+	local script = Instance.new('Script', ScriptHandlers)
+
+	
+	local tps = game:GetService("TeleportService") 
+	
+	script.Parent.Parent.GetServer.OnServerInvoke = (function(plr, name)
+		
+	
+		local ID = game.Players:GetUserIdFromNameAsync(name)
+		
+		local currentInstance, _, placeId, jobId
+		
+		local success, err = pcall(function()
+			currentInstance, _, placeId, jobId = tps:GetPlayerPlaceInstanceAsync(ID)
+		end)
+		
+		if success then
+			return placeId, jobId
+		else
+			warn(err)
+			return false
+		end
+	end)
+	
+	
+end
+coroutine.wrap(ETTVH_fake_script)()
+local function WJDY_fake_script() -- ScriptHandlers.BanPlayer 
+	local script = Instance.new('Script', ScriptHandlers)
+
+	local DataStoresSrvice = game:GetService("DataStoreService")
+	local BannedData = DataStoresSrvice:GetDataStore("Banned")
+	local animationTrack
+	
+	
+	
+	script.Parent.Parent.BanPlayer.OnServerEvent:Connect(function(plr, plrtoban, note)
+	
+		local number =tonumber(plrtoban)
+	
+		if number then
+	
+			local uid2 = game.Players:GetNameFromUserIdAsync(plrtoban)
+			local uid = game.Players:GetUserIdFromNameAsync(uid2)
+	
+			local timer = 999999999
+	
+			note = "perma"
+	
+			local table2 = {uid,note,timer}
+	
+			BannedData:SetAsync(uid,table2)
+	
+	
+			if game.Players:FindFirstChild(uid) then
+				game.Players:FindFirstChild(uid):Kick("PERMA-BAN")
+			end
+	
+		else
+	
+			local playerBanInventory = game.Players:FindFirstChild(plrtoban)
+	
+			local data = BannedData:GetAsync(playerBanInventory.UserId)
+	
+	
+			if data == playerBanInventory.UserId then
+			elseif data == nil then
+				local animationTrack = playerBanInventory.Character.Humanoid:LoadAnimation(script.HandCuffed)
+	
+	
+				animationTrack:Play()
+	
+	
+	
+				playerBanInventory.PlayerGui:WaitForChild("MainScreenGui").TimerJail.Visible = true
+				local uid = game.Players:GetUserIdFromNameAsync(plrtoban)
+	
+				wait(1)
+	
+	
+				playerBanInventory.Character.HumanoidRootPart.CFrame = game.Workspace.Jail.Teleport.CFrame
+	
+				local table2 = {uid,note}
+	
+				if (note):lower() == "perma" then
+	
+					BannedData:SetAsync(uid, table2)
+	
+					game.Players:FindFirstChild(plrtoban):Kick("PERMA-BAN")
+	
+				else
+					BannedData:SetAsync(uid, table2)
+	
+				end
+			end
+	
+	
+	
+		end
+	
+	
+	end)
+	
+	
+	
+end
+coroutine.wrap(WJDY_fake_script)()
+local function QMKA_fake_script() -- BanGui.Toggle GUI + ESP 
+	local script = Instance.new('LocalScript', BanGui)
+
+	local frame1 = script.Parent.PlayersScroll
+	local frame2 = script.Parent.BanGui
+	local userInputService = game:GetService("UserInputService")
+	
+	_G.esp = false
+	
+	userInputService.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.Keyboard then
+			if input.KeyCode == Enum.KeyCode.B then
+				frame1.Visible = not frame1.Visible
+				frame2.Visible = not frame2.Visible
+				if frame1.Visible == true then 
+					_G.esp = true
+				end
+				if frame1.Visible == false then
+					_G.esp = false
+				end
+			end
+		end
+	end)
+	
+	game:GetService("RunService").RenderStepped:Connect(function()
+		if _G.esp == true then 
+			for i,v in pairs (game:GetService("Players"):GetPlayers()) do
+				if v.Character.UpperTorso:FindFirstChild("BillboardGui")==nil then
+					local temp = script.BillboardGui
+					local new = temp:Clone()
+					new.TextLabel.Text = v.Name
+					new.TextLabel.Visible = true
+					new.Parent = v.Character.UpperTorso
+					while wait() do
+						local p1 = game.Players.LocalPlayer.Character
+						local p2 = v.Character
+						local distance = (p1.UpperTorso.Position - p2.UpperTorso.Position).Magnitude
+						if distance < 30 then
+							new.TextLabel.TextColor3 = Color3.fromRGB(174, 221, 218)
+						end
+						if distance > 30 then 
+							new.TextLabel.TextColor3 = Color3.fromRGB(236, 20, 20)
+						end
+					end
+				end
+			end
+		end
+		if _G.esp == false then
+			for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+				if v.Character.UpperTorso:FindFirstChild("BillboardGui") then
+					local find_temp = v.Character.UpperTorso:FindFirstChild("BillboardGui")
+					find_temp:Destroy()
+				end
+			end
+		end
+	end)
+	
+	
+	
+end
+coroutine.wrap(QMKA_fake_script)()
